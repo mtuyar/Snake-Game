@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Snake Game</title>
+  <title>Yılan Oyunu</title>
   <link rel="stylesheet" href="snake.css">
 </head>
 <body>
   <div class="game-container">
-    <h1 class="game-title">Snake Game</h1>
-    <div class="game-area">
-      <canvas id="gameCanvas"></canvas>
-      <div class="info-panel">
-        <div class="score-board">
-          <span>Score: <span id="score">0</span></span>
-        </div>
-        <button id="restartButton" class="restart-button">Restart Game</button>
-      </div>
-    </div>
+    <h1>Yılan Oyunu</h1>
+    <div class="score">Skor: <span id="score">0</span></div>
+    <div class="game-board" id="game-board"></div>
+    <button id="restart-btn">Yeniden Başlat</button>
   </div>
   <script src="snake.js"></script>
 </body>

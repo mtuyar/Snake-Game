@@ -5,7 +5,7 @@ const restartBtn = document.getElementById("restart-btn");
 const gridSize = 20; // Oyun tahtası boyutu (20x20)
 let snake = [{ x: 10, y: 10 }]; // Yılanın başlangıç pozisyonu
 let food = { x: 5, y: 5 }; // Yemin başlangıç pozisyonu
-let direction = { x: 0, y: 0 }; // Yılanın başlangıç yönü
+let direction = { x: 1, y: 0 }; // Yılanın başlangıç yönü
 let score = 0; // Başlangıç skoru
 let gameInterval; // Oyun döngüsü için interval
 let isGameOver = false; // Oyunun bitip bitmediğini kontrol eder
@@ -73,6 +73,10 @@ function moveSnake() {
   if (head.x === food.x && head.y === food.y) {
     score++;
     scoreElement.textContent = score;
+    if (score === 9) {
+      showLoveMessage();
+      return;
+    }
     placeFood();
   } else {
     snake.pop();
@@ -84,18 +88,11 @@ function gameOver() {
   isGameOver = true;
   clearInterval(gameInterval);
   alert(`Oyun Bitti! Skorunuz: ${score}`);
+  restartBtn.style.display = "block";
 }
 
 // Yeniden başlat
-restartBtn.addEventListener("click", () => {
-  snake = [{ x: 10, y: 10 }];
-  direction = { x: 0, y: 0 };
-  score = 0;
-  scoreElement.textContent = score;
-  isGameOver = false;
-  placeFood();
-  gameInterval = setInterval(updateGame, 150);
-});
+restartBtn.addEventListener("click", startGame);
 
 // Klavye kontrolleri
 window.addEventListener("keydown", e => {
@@ -125,8 +122,15 @@ function updateGame() {
 
 // Oyunu başlat
 function startGame() {
+  snake = [{ x: 10, y: 10 }];
+  direction = { x: 1, y: 0 };
+  score = 0;
+  scoreElement.textContent = score;
+  isGameOver = false;
+  restartBtn.style.display = "none";
   createGameBoard();
   placeFood();
+  if (gameInterval) clearInterval(gameInterval);
   gameInterval = setInterval(updateGame, 150);
 }
 
